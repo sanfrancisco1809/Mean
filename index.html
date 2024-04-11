@@ -134,8 +134,8 @@
             audio.currentTime = 0; // Reset audio to start if it has been played before
             audio.play();
             animateMeanCalculation(dataSet);
-            this.classList.remove('hidden');
-            document.getElementById('continueButton').classList.add('hidden');
+            this.classList.add('hidden');
+            document.getElementById('continueButton').classList.remove('hidden');
         });
 
         document.getElementById('continueButton').addEventListener('click', function () {
