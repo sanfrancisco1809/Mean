@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics Visualization: Mean Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            text-align: center;
+            background-color: blanchedalmond;
+        }
+
+        .highlight,
+        .formula,
+        .fraction,
+        .numerator,
+        .denominator,
+        #animationContainer,
+        #calculationContainer,
+        #numberRange,
+        #formulaContainer {
+            font-size: 24px;
+            font-style: bold;
+            /* Uniform font size for readability */
+        }
+
+        .highlight {
+            background-color: yellow;
+            /* Highlight color for current number */
+        }
+
+        .formula {
+            margin-top: 20px;
+        }
+
+        .fraction {
+            margin-top: 20px;
+        }
+
+        #numberRange {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #calculationContainer {
+            margin-top: 20px;
+            /* Spacing for clear separation of sections */
+        }
+
+        #animationContainer {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allows items to wrap if they exceed container width */
+            justify-content: center;
+            /* Centers items horizontally */
+            align-items: flex-start;
+            /* Aligns items to the start of the flex container */
+        }
+
+        /*.pointer {
+            display: block;
+            position: absolute;
+            visibility: hidden;
+            /* Initially hidden, shown during animation */
+        
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            margin-top: 20px;
+            /* Spacing after the last displayed content */
+        }
+
+        .fraction-display {
+            margin-top: 40px;
+            /* Spacing for fraction display */
+        }
+
+        .item-container {
+            display: flex;
+            flex-direction: row;
+            align-items: top;
+            justify-content: center;
+            margin: 5px;
+        }
+
+        .item-container img {
+            margin-bottom: 5px;
+            align-items: baseline;
+            width: 50px;
+            /* Adjust based on your preference */
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="numberRange"></div>
+    <div id="formulaContainer" class="hidden"></div>
+    <div id="animationContainer"></div>
+    <!--<span class="pointer">&#x2193;</span> -- Pointer for current number -->
+    <div id="calculationContainer" class="hidden"></div>
+    <audio id="meanAudio" src="Audio_mean.wav.m4a" hidden></audio>
+    <audio id="meanAudio2" src="Audio_mean2.wav.m4a" hidden></audio>
+    <!--<audio id="meanAudio3" src="link.wav.m4a" hidden></audio>-->
+    <button id="startButton">Start Mean Animation</button>
+    <button id="continueButton" class="hidden">Continue with New Dataset</button>
+    <div id="linksContainer" class="hidden">
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2010/Median/index.html">Median
+            Visualization</a> |
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2010/Mode/index.html">Mode
+            Visualization</a>
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2010/Exercise_MMM/Index.html">Mean-Median-Mode
+            Exercise</a>
+    </div>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', function () {
+            this.classList.add('hidden');
+            const dataSet = [2, 5, 13, 22, 47, 79];
+            const audio = document.getElementById('meanAudio');
+            audio.currentTime = 0; // Reset audio to start if it has been played before
+            audio.play();
+            animateMeanCalculation(dataSet);
+            this.classList.remove('hidden');
+            document.getElementById('continueButton').classList.add('hidden');
+        });
+
+        document.getElementById('continueButton').addEventListener('click', function () {
+            this.classList.add('hidden');
+            const newDataSet = [2.5, 5.5, 14.2, 24.3, 45, 80.4];
+            animateMeanCalculation(newDataSet);
+            //this.classList.add('hidden');
+            document.getElementById('linksContainer').classList.remove('hidden');
+            const audio = document.getElementById('meanAudio2');
+            audio.currentTime = 0; // Reset audio to start if it has been played before
+            audio.play(); 
+        });
+
+
+
+        function animateMeanCalculation(dataSet) {
+            const numberRange = document.getElementById('numberRange');
+            const formulaContainer = document.getElementById('formulaContainer');
+            const animationContainer = document.getElementById('animationContainer');
+            const calculationContainer = document.getElementById('calculationContainer');
+            //const pointer = document.querySelector('.pointer');
+
+            // Calculate center positions
+            const centerX = (window.innerWidth - numberRange.offsetWidth) / 2;
+            const centerY = (window.innerHeight - numberRange.offsetHeight) / 2;
+
+            setTimeout(() => {
+                numberRange.textContent = 'Dataset: ' + dataSet.join(', ');
+                // Animate numberRange to center
+                numberRange.animate([
+                    { transform: `translate(0, 0)` },
+                    { transform: `translate(${centerX}px, ${0}px)` }
+                ], {
+                    duration: 1000, // Animation duration
+                    fill: 'forwards', // Maintain the final state
+                    easing: 'ease-out' // Smooth easing function
+                });
+            }, 10000);
+
+            formulaContainer.classList.remove('hidden');
+            setTimeout(() => {
+                formulaContainer.innerHTML = `<div style="display: flex; align-items: center; margin-top: 20px;">
+            <span style="margin-right: 10px;">Mean Formula: </span>
+            <div class="fraction" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="numerator">ΣX = Sum of all numbers</span>
+                <hr style="width: 100%;">
+                <span class="denominator">N = Count of numbers</span><br/><br/>
+            </div>
+        </div>`;
+            }, 20000);
+            //formulaContainer.innerHTML = '<div class="formula">Mean Formula:</div>';
+            formulaContainer.innerHTML = '';
+            animationContainer.innerHTML = '';
+            calculationContainer.innerHTML = '';
+            calculationContainer.classList.add('hidden');
+            //pointer.style.visibility = 'visible';
+            setTimeout(() => {
+                displayNumbersSequentially(dataSet, animationContainer, () => {
+                });
+            }, 30000);
+        }
+
+        function displayNumbersSequentially(dataSet, container, callback) {
+            let sum = 0;
+            let lastHighlighted = null; // Keep track of the last highlighted element
+
+            dataSet.forEach((number, index) => {
+                setTimeout(() => {
+                    sum += number;
+                    // Create a container for both the number and the image
+                    const itemContainer = document.createElement('div');
+                    itemContainer.classList.add('item-container'); // For styling purposes
+
+                    const newSpan = document.createElement('span');
+                    newSpan.innerHTML = `${index > 0 ? ' + ' : ''}<span class="highlight">${number}</span>`;
+
+                    // Create the image element
+                    const img = document.createElement('img');
+                    // Assume you have a way to determine the image source based on the number
+                    img.src = `image_women_${number}.png`; // Adjust the path as needed
+                    img.alt = `Image for ${number}`;
+                    img.style.width = '50px'; // Adjust styling as needed
+                    img.style.height = 'auto';
+
+                    // Append the number and the image to the container
+
+                    itemContainer.appendChild(img);
+                    itemContainer.appendChild(newSpan);
+                    container.appendChild(itemContainer);
+
+                    // Remove highlight from the last number
+                    if (lastHighlighted) {
+                        lastHighlighted.classList.remove('highlight');
+                    }
+
+                    //container.appendChild(newSpan);
+                    //pointer.style.left = `${newSpan.offsetLeft}px`; // Adjust pointer position
+
+                    // Update lastHighlighted to the current highlighted element
+                    lastHighlighted = newSpan.querySelector('.highlight');
+
+                    // Optionally, remove highlight after a delay
+                    // setTimeout(() => {
+                    //     if (lastHighlighted) {
+                    //         lastHighlighted.classList.remove('highlight');
+                    //     }
+                    // }, 500); // Adjust delay as needed
+
+                    if (index === dataSet.length - 1) {
+                        container.innerHTML += ` = ${sum}`;
+                        //pointer.style.visibility = 'hidden';
+                        setTimeout(callback, 2000); // Wait for 2 seconds before showing calculation details
+                    }
+                }, 2000 * index);
+            });
+            showCalculationDetails(dataSet, calculationContainer);
+        }
+
+        function showCalculationDetails(dataSet, container) {
+            const sum = dataSet.reduce((acc, val) => acc + val, 0);
+            const count = dataSet.length;
+            const mean = sum / count;
+            container.classList.remove('hidden');
+            // Displaying sum and count container.classList.remove('hidden');
+            // Ensure previous content is maintained or cleared as needed
+            setTimeout(() => {
+                container.classList.remove('hidden');
+                container.innerHTML = `Sum = ${sum}<br/><br/>Count = ${count}`;
+            }, 20000);
+            // Displaying mean as a fraction
+            setTimeout(() => {
+                container.classList.remove('hidden');
+                container.innerHTML += `
+                            <div style="display: flex; align-items: center; margin-top: 20px;">
+                                <span style="margin-right: 10px;">Mean = </span>
+                                <div class="fraction" style="display: flex; flex-direction: column; align-items: center;">
+                                    <span class="numerator">Sum</span>
+                                    <hr style="width: 100%;">
+                                    <span class="denominator">Count</span>
+                                </div>
+                            </div>`;
+            }, 25000);
+            setTimeout(() => {
+                container.classList.remove('hidden');
+                //container.innerHTML += `<br/><br/>Mean = <div class="fraction"><span class="numerator">${sum}</span><hr><span class="denominator">${count}</span></div>`;
+                container.innerHTML += `
+                            <div style="display: flex; align-items: center; margin-top: 20px;">
+                                <span style="margin-right: 10px;">Mean = </span>
+                                <div class="fraction" style="display: flex; flex-direction: column; align-items: center;">
+                                    <span class="numerator">${sum}</span>
+                                    <hr style="width: 100%;">
+                                    <span class="denominator">${count}</span>
+                                </div>
+                            </div>`;
+            }, 35000);
+            setTimeout(() => {
+                container.classList.remove('hidden');
+                //container.innerHTML += `<div class="fraction-display">Mean = <div class="fraction"><span class="numerator">${sum}</span><hr><span class="denominator">${count}</span></div></div>`;
+                // Calculated mean value
+                container.innerHTML += `<div><br/><br/>Mean Value = ${mean.toFixed(2)}</div><br/><br/>`;
+            }, 40000);
+        }
+
+    </script>
+</body>
+
+</html>
