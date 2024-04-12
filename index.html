@@ -50,6 +50,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            
         }
 
         #calculationContainer {
@@ -72,7 +73,7 @@
             position: absolute;
             visibility: hidden;
             /* Initially hidden, shown during animation */
-        
+
 
         .hidden {
             display: none;
@@ -114,7 +115,7 @@
     <div id="calculationContainer" class="hidden"></div>
     <audio id="meanAudio" src="Audio_mean.wav.m4a" hidden></audio>
     <audio id="meanAudio2" src="Audio_mean2.wav.m4a" hidden></audio>
-    <!--<audio id="meanAudio3" src="link.wav.m4a" hidden></audio>-->
+    <audio id="meanAudio3" src="link.wav.m4a" hidden></audio>
     <button id="startButton">Start Mean Animation</button>
     <button id="continueButton" class="hidden">Continue with New Dataset</button>
     <div id="linksContainer" class="hidden">
@@ -135,18 +136,25 @@
             audio.play();
             animateMeanCalculation(dataSet);
             this.classList.add('hidden');
-            document.getElementById('continueButton').classList.remove('hidden');
+            // document.getElementById('continueButton').classList.remove('hidden');
         });
 
         document.getElementById('continueButton').addEventListener('click', function () {
             this.classList.add('hidden');
+            numberRange.innerHTML = '';
             const newDataSet = [2.5, 5.5, 14.2, 24.3, 45, 80.4];
             animateMeanCalculation(newDataSet);
             //this.classList.add('hidden');
             document.getElementById('linksContainer').classList.remove('hidden');
             const audio = document.getElementById('meanAudio2');
             audio.currentTime = 0; // Reset audio to start if it has been played before
-            audio.play(); 
+            audio.play();
+            const audio1 = document.getElementById('meanAudio3');
+            audio.onended = function () {
+                // Once the first audio has ended, play the second
+                audio1.currentTime = 0; // Reset audio1 to start if it has been played before
+                audio1.play();
+            }
         });
 
 
@@ -293,10 +301,13 @@
             }, 35000);
             setTimeout(() => {
                 container.classList.remove('hidden');
-                //container.innerHTML += `<div class="fraction-display">Mean = <div class="fraction"><span class="numerator">${sum}</span><hr><span class="denominator">${count}</span></div></div>`;
-                // Calculated mean value
-                container.innerHTML += `<div><br/><br/>Mean Value = ${mean.toFixed(2)}</div><br/><br/>`;
-            }, 40000);
+                container.innerHTML += `<div><br/><br/>Mean Value = ${mean.toFixed(2)}</div>`;
+
+                // Now that all calculations and displays for the first dataset are done,
+                // reveal the 'Continue with New Dataset' button.
+                document.getElementById('continueButton').classList.remove('hidden');
+            }, 40000); // This timeout duration should match the last step of your animation.
+
         }
 
     </script>
