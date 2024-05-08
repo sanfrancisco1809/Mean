@@ -50,7 +50,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            
+
         }
 
         #calculationContainer {
@@ -104,36 +104,60 @@
             /* Adjust based on your preference */
             height: 150px;
         }
+
+        #meanVideo {
+            position: absolute;
+            left: 0;
+            top: 60%;
+            width: 600px;
+            /* Adjust as needed */
+            transform: translateY(-50%);
+            /* Center vertically */
+        }
     </style>
+</head>
 
-
-<link rel="stylesheet" href="https://agent.d-id.com/1.0.0-beta.95/style.css"/>
-<script
-    type="module"
-    src="https://agent.d-id.com/1.0.0-beta.95/index.js"
-    data-name="did-agent"
-    data-mode="fabio"
-    data-client-key="Z29vZ2xlLW9hdXRoMnwxMDEyNTM3MTA4MTkyOTU5NDEyNjA6WGdmNkdPZUJYalo0dlU4Yko0UFU0"
-    data-agent-id="agt_A82NvGLe">
-</script>
-</head>  
 <body>
+    <script type="module">
+        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+        Chatbot.init({
+            chatflowid: "fb607404-f68a-448e-973f-b43201e09c56",
+            apiHost: "http://localhost:3000",
+            theme: {
+                button: {
+                    backgroundColor: "#DBA979",
+                    chatWindow: {
+                        height: 700,
+                        width: 400,
+                        userMessage: {
+                            backgroundColor: "#DBA979",
+                        },
+                        textInput: {
+                            sendButtonColor: "#DBA979",
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+
     <div id="numberRange"></div>
     <div id="formulaContainer" class="hidden"></div>
     <div id="animationContainer"></div>
     <!--<span class="pointer">&#x2193;</span> -- Pointer for current number -->
     <div id="calculationContainer" class="hidden"></div>
-    <audio id="meanAudio" src="Audio_mean.wav.m4a" hidden></audio>
-    <audio id="meanAudio2" src="audio_mean2.wav.m4a" hidden></audio>
+    <video id="meanVideo" src="Mean_Video.mp4"></video>
+    <audio id="meanAudio" src="Audio_mean.wav.mp4" hidden></audio>
+    <audio id="meanAudio2" src="Audio_mean2.wav.m4a" hidden></audio>
     <audio id="meanAudio3" src="link.wav.m4a" hidden></audio>
     <button id="startButton">Start Mean Animation</button>
     <button id="continueButton" class="hidden">Continue with New Dataset</button>
     <div id="linksContainer" class="hidden">
-        <a href="file:Median/index.html">Median
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2015/Median/index.html">Median
             Visualization</a> |
-        <a href="Mode/index.html">Mode
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2015/Mode/index.html">Mode
             Visualization</a>
-        <a href="file:Exercise_MMM/Index.html">Mean-Median-Mode
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2015/Exercise_MMM/Index.html">Mean-Median-Mode
             Exercise</a>
     </div>
 
@@ -141,9 +165,22 @@
         document.getElementById('startButton').addEventListener('click', function () {
             this.classList.add('hidden');
             const dataSet = [2, 5, 13, 22, 47, 79];
+            const video = document.getElementById('meanVideo');
+            video.style.display = 'block'; // Make sure the video is visible when starting
+            video.currentTime = 0; // Reset the video to the start
+            video.play();
+
+            setTimeout(function () {
+                video.pause(); // Stop playing the video
+                video.style.display = 'none'; // Hide the video
+            }, 9000); // Stop after 9000 milliseconds (9 seconds)
             const audio = document.getElementById('meanAudio');
-            audio.currentTime = 0; // Reset audio to start if it has been played before
-            audio.play();
+            //video.style.display = 'block'; // Make sure the video is visible when starting
+            setTimeout(() => {
+                audio.currentTime = 0; // Reset the video to the start
+                audio.play();
+            }, 9000);
+
             animateMeanCalculation(dataSet);
             this.classList.add('hidden');
             // document.getElementById('continueButton').classList.remove('hidden');
@@ -185,7 +222,7 @@
                 // Animate numberRange to center
                 numberRange.animate([
                     { transform: `translate(0, 0)` },
-                    { transform: `translate(${centerX}px, ${0}px)` }
+                    { transform: `translate(${centerX-100}px, ${0}px)` }
                 ], {
                     duration: 1000, // Animation duration
                     fill: 'forwards', // Maintain the final state
