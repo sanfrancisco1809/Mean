@@ -21,6 +21,7 @@
 
         #explanationContainer,
         #animationContainer,
+        #formulaContainer,
         #resultContainer {
             font-size: 24px;
             margin-bottom: 20px;
@@ -51,6 +52,7 @@
 <body>
     <div id="explanationContainer"></div>
     <div id="animationContainer"></div>
+    <div id="formulaContainer"></div>
     <div id="resultContainer"></div>
     <button id="startButton">Start Median Animation</button>
 
@@ -68,9 +70,11 @@
 
             const animationContainer = document.getElementById('animationContainer');
             const explanationContainer = document.getElementById('explanationContainer');
+            const formulaContainer = document.getElementById('formulaContainer');
             const resultContainer = document.getElementById('resultContainer');
 
             animationContainer.innerHTML = ''; // Clear previous content
+            formulaContainer.innerHTML = ''; // Clear preious content
             explanationContainer.innerHTML = 'Displaying numbers one by one...';
             resultContainer.innerHTML = ''; // Clear result content
 
@@ -129,6 +133,7 @@
 
         function highlightMedian(sortedData) {
             const explanationContainer = document.getElementById('explanationContainer');
+            const formulaContainer = document.getElementById('formulaContainer');
             const resultContainer = document.getElementById('resultContainer');
             const numberElements = document.querySelectorAll('.number');
 
@@ -136,20 +141,85 @@
             if (sortedData.length % 2 === 0) {
                 const mid1 = sortedData.length / 2 - 1;
                 const mid2 = sortedData.length / 2;
+                const num_sum = (sortedData[mid1] + sortedData[mid2])
                 median = (sortedData[mid1] + sortedData[mid2]) / 2;
                 numberElements[mid1].classList.add('highlight');
                 numberElements[mid2].classList.add('highlight');
-                explanationContainer.innerHTML = 'Median is the average of the two middle numbers.';
+                setTimeout(() => {
+                    explanationContainer.innerHTML = 'Median is the average of the two middle numbers, Since the number of data points in the dataset is an even number';
+                    formulaContainer, innerHTML = '';
+                    formulaContainer.innerHTML += ` 
+                            <div style="display: flex; align-items: center; margin-top: 20px;">
+                                <span style="margin-right: 10px;">Median = </span>
+                                <div class="fraction" style="display: flex; flex-direction: column; align-items: center;">
+                                    <span class="numerator">"Average of the two middle numbers"</span>
+                                    <hr style="width: 100%;">
+                                    <span class="denominator">2</span>
+                                </div>
+                            </div>`;
+                }, 5000);
+                setTimeout(() => {
+                    formulaContainer, innerHTML = '';
+                    formulaContainer.innerHTML += ` 
+                            <div style="display: flex; align-items: center; margin-top: 20px;">
+                                <span style="margin-right: 10px;">Median = </span>
+                                <div class="fraction" style="display: flex; flex-direction: column; align-items: center;">
+                                    <span class="numerator">${sortedData[mid1]} + ${sortedData[mid2]}</span>
+                                    <hr style="width: 100%;">
+                                    <span class="denominator">2</span>
+                                </div>
+                            </div>`;
+                }, 10000);
+                setTimeout(() => {
+                    formulaContainer, innerHTML = '';
+                    formulaContainer.innerHTML += ` 
+                            <div style="display: flex; align-items: center; margin-top: 20px;">
+                                <span style="margin-right: 10px;">Median = </span>
+                                <div class="fraction" style="display: flex; flex-direction: column; align-items: center;">
+                                    <span class="numerator">${num_sum}</span>
+                                    <hr style="width: 100%;">
+                                    <span class="denominator">2</span>
+                                </div>
+                            </div>`;
+                }, 15000);
             } else {
                 const mid = Math.floor(sortedData.length / 2);
                 median = sortedData[mid];
                 numberElements[mid].classList.add('highlight');
-                explanationContainer.innerHTML = 'Median is the middle number.';
+                setTimeout(() => {
+                    explanationContainer.innerHTML = 'Median is the middle number.';
+                    formulaContainer, innerHTML = '';
+                    formulaContainer.innerHTML += ` 
+                            <div style="display: flex; align-items: center; margin-top: 20px;">
+                                <span style="margin-right: 10px;">Median = </span>
+                                <div class="fraction" style="display: flex; flex-direction: column; align-items: center;">
+                                    <span class="numerator">"The middle number"</span>
+                                    <hr style="width: 100%;">
+                                    <span class="denominator">2</span>
+                                </div>
+                            </div>`;
+                }, 5000);
+                setTimeout(() => {
+                    formulaContainer, innerHTML = '';
+                    formulaContainer.innerHTML += ` 
+                            <div style="display: flex; align-items: center; margin-top: 20px;">
+                                <span style="margin-right: 10px;">Median = </span>
+                                <div class="fraction" style="display: flex; flex-direction: column; align-items: center;">
+                                    <span class="numerator">${sortedData[mid]}</span>
+                                    <hr style="width: 100%;">
+                                    <span class="denominator">2</span>
+                                </div>
+                            </div>`;
+                }, 10000);
             }
-
-            resultContainer.innerHTML = `Median: ${median}`;
-            document.getElementById('startButton').style.display = 'block'; // Show start button for new rounds
+            setTimeout(() => {
+                resultContainer.innerHTML = `Median: ${median}`;
+            }, 20000);
+            setTimeout(() => {
+                document.getElementById('startButton').style.display = 'block'; // Show start button for new rounds
+            }, 25000);
         }
+
 
     </script>
 </body>
