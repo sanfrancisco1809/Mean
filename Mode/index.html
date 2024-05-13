@@ -17,6 +17,7 @@
             flex-direction: column;
             min-height: 100vh;
             text-align: center;
+            background-color: blanchedalmond;
         }
 
         #explanationContainer,
@@ -31,6 +32,10 @@
             padding: 10px;
             margin-top: 20px;
             cursor: pointer;
+        }
+
+        .hidden {
+            display: none
         }
 
         .number {
@@ -51,10 +56,40 @@
 </head>
 
 <body>
+    <script type="module">
+        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+        Chatbot.init({
+            chatflowid: "fb607404-f68a-448e-973f-b43201e09c56",
+            apiHost: "http://localhost:3000",
+            theme: {
+                button: {
+                    backgroundColor: "#DBA979",
+                    chatWindow: {
+                        height: 700,
+                        width: 400,
+                        userMessage: {
+                            backgroundColor: "#DBA979",
+                        },
+                        textInput: {
+                            sendButtonColor: "#DBA979",
+                        }
+                    }
+                }
+            }
+        })
+    </script>
     <div id="explanationContainer">Press "Start Mode Animation" to begin.</div>
     <div id="animationContainer"></div>
     <div id="resultContainer"></div>
     <button id="startButton">Start Mode Animation</button>
+    <div id="linksContainer" class="hidden">
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2019/index.html">Mean
+            Visualization</a> |
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2019/Median/index.html">Median
+            Visualization</a>
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2019/Exercise_MMM/Index.html">Mean-Median-Mode
+            Exercise</a>
+    </div>
 
     <script src="script.js"></script>
     <script>
@@ -125,9 +160,16 @@
                     elem.classList.add('highlight');
                 }
             });
-
-            resultContainer.innerHTML = `Mode: ${modes.join(', ')}`;
-            document.getElementById('startButton').style.display = 'block'; // Show start button for new rounds
+            setTimeout(() => {
+                resultContainer.innerHTML = `Mode: ${modes.join(', ')}</br></br>`;
+            }, 5000);
+            setTimeout(() => {
+                document.getElementById('startButton').style.display = 'block'; // Show start button for new rounds
+                document.getElementById('startButton').style.marginBottom = '2em';
+            }, 10000);
+            setTimeout(() => {
+                document.getElementById('linksContainer').classList.remove('hidden');
+            }, 15000);
         }
 
     </script>

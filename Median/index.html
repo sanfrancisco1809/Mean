@@ -17,7 +17,9 @@
             flex-direction: column;
             min-height: 100vh;
             text-align: center;
+            background-color: blanchedalmond;
         }
+
 
         #explanationContainer,
         #animationContainer,
@@ -26,6 +28,8 @@
             font-size: 24px;
             margin-bottom: 20px;
         }
+
+
 
         button {
             font-size: 20px;
@@ -46,20 +50,59 @@
         .highlight {
             background-color: yellow;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
+    <script type="module">
+        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+        Chatbot.init({
+            chatflowid: "fb607404-f68a-448e-973f-b43201e09c56",
+            apiHost: "http://localhost:3000",
+            theme: {
+                button: {
+                    backgroundColor: "#DBA979",
+                    chatWindow: {
+                        height: 700,
+                        width: 400,
+                        userMessage: {
+                            backgroundColor: "#DBA979",
+                        },
+                        textInput: {
+                            sendButtonColor: "#DBA979",
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+
     <div id="explanationContainer"></div>
     <div id="animationContainer"></div>
     <div id="formulaContainer"></div>
     <div id="resultContainer"></div>
     <button id="startButton">Start Median Animation</button>
+    <div id="linksContainer" class="hidden">
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2020/index.html">Mean
+            Visualization</a> |
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2020/Mode/index.html">Mode
+            Visualization</a>
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2020/Exercise_MMM/Index.html">Mean-Median-Mode
+            Exercise</a>
+    </div>
 
     <script src="script.js"></script>
     <script>
+
+
+
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('startButton').addEventListener('click', startMedianAnimation);
+
         });
 
         const dataSet = [7, 2, 10, 3, 5, 3]; // Example mixed dataset
@@ -72,6 +115,7 @@
             const explanationContainer = document.getElementById('explanationContainer');
             const formulaContainer = document.getElementById('formulaContainer');
             const resultContainer = document.getElementById('resultContainer');
+
 
             animationContainer.innerHTML = ''; // Clear previous content
             formulaContainer.innerHTML = ''; // Clear preious content
@@ -213,11 +257,15 @@
                 }, 10000);
             }
             setTimeout(() => {
-                resultContainer.innerHTML = `Median: ${median}`;
+                resultContainer.innerHTML = `Median: ${median}</br></br>`;
             }, 20000);
             setTimeout(() => {
                 document.getElementById('startButton').style.display = 'block'; // Show start button for new rounds
+                document.getElementById('startButton').style.marginBottom = '2em'; // Leave double line space for new rounds
             }, 25000);
+            setTimeout(() => {
+                document.getElementById('linksContainer').classList.remove('hidden');
+            }, 30000);
         }
 
 

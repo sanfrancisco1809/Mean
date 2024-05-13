@@ -118,20 +118,8 @@
 </head>
 
 <body>
-
-
-    <script type="module" src="https://agent.d-id.com/v1/index.js" data-name="did-agent" data-mode="fabio"
-        setTimeout(()=> {
-                data - client - key="Z29vZ2xlLW9hdXRoMnwxMDEyNTM3MTA4MTkyOTU5NDEyNjA6WGdmNkdPZUJYalo0dlU4Yko0UFU0"
-                data - agent - id="agt_mSHLSjhZ" >
-        }, 45000);
-        </script>
-
-
-
-
     <script type="module">
-        /*import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
         Chatbot.init({
             chatflowid: "fb607404-f68a-448e-973f-b43201e09c56",
             apiHost: "http://localhost:3000",
@@ -150,7 +138,7 @@
                     }
                 }
             }
-        })/*
+        })
     </script>
 
     <div id="numberRange"></div>
@@ -165,11 +153,11 @@
     <button id="startButton">Start Mean Animation</button>
     <button id="continueButton" class="hidden">Continue with New Dataset</button>
     <div id="linksContainer" class="hidden">
-        <a href="file:///https://github.com/sanfrancisco1809/Mean/Median/index.html">Median
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2020/Median/index.html">Median
             Visualization</a> |
-        <a href="file:///https://github.com/sanfrancisco1809/Mean/Mode/index.html">Mode
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2020/Mode/index.html">Mode
             Visualization</a>
-        <a href="file:///https://github.com/sanfrancisco1809/Mean/Exercise_MMM/Index.html">Mean-Median-Mode
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2020/Exercise_MMM/Index.html">Mean-Median-Mode
             Exercise</a>
     </div>
 
@@ -195,16 +183,19 @@
 
             animateMeanCalculation(dataSet);
             this.classList.add('hidden');
-            // document.getElementById('continueButton').classList.remove('hidden');
+            //document.getElementById('continueButton').classList.remove('hidden');
         });
-
+        setTimeout(() => {
+            document.getElementById('continueButton').classList.remove('hidden');
+        }, 75000);
+       
         document.getElementById('continueButton').addEventListener('click', function () {
             this.classList.add('hidden');
             numberRange.innerHTML = '';
+
             const newDataSet = [2.5, 5.5, 14.2, 24.3, 45, 80.4];
             animateMeanCalculation(newDataSet);
             //this.classList.add('hidden');
-            document.getElementById('linksContainer').classList.remove('hidden');
             const audio = document.getElementById('meanAudio2');
             audio.currentTime = 0; // Reset audio to start if it has been played before
             audio.play();
@@ -214,6 +205,9 @@
                 audio1.currentTime = 0; // Reset audio1 to start if it has been played before
                 audio1.play();
             }
+            setTimeout(() => {
+                document.getElementById('linksContainer').classList.remove('hidden');
+            }, 75000);
         });
 
 
@@ -234,7 +228,7 @@
                 // Animate numberRange to center
                 numberRange.animate([
                     { transform: `translate(0, 0)` },
-                    { transform: `translate(${centerX-100}px, ${0}px)` }
+                    { transform: `translate(${centerX - 100}px, ${0}px)` }
                 ], {
                     duration: 1000, // Animation duration
                     fill: 'forwards', // Maintain the final state
@@ -360,12 +354,14 @@
             }, 35000);
             setTimeout(() => {
                 container.classList.remove('hidden');
-                container.innerHTML += `<div><br/><br/>Mean Value = ${mean.toFixed(2)}</div>`;
+                container.innerHTML += `<div><br/><br/>Mean Value = ${mean.toFixed(2)}<br/><br/></div>`;
 
                 // Now that all calculations and displays for the first dataset are done,
                 // reveal the 'Continue with New Dataset' button.
-                document.getElementById('continueButton').classList.remove('hidden');
+
             }, 40000); // This timeout duration should match the last step of your animation.
+
+
 
         }
 
