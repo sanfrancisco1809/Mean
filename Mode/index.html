@@ -35,7 +35,7 @@
         }
 
         .hidden {
-            display: none
+            display: none;
         }
 
         .number {
@@ -78,28 +78,36 @@
             }
         })
     </script>
+
     <div id="explanationContainer">Press "Start Mode Animation" to begin.</div>
     <div id="animationContainer"></div>
     <div id="resultContainer"></div>
     <button id="startButton">Start Mode Animation</button>
     <div id="linksContainer" class="hidden">
-        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2019/index.html">Mean
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2022/index.html">Mean
             Visualization</a> |
-        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2019/Median/index.html">Median
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2022/Median/index.html">Median
             Visualization</a>
-        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2019/Exercise_MMM/Index.html">Mean-Median-Mode
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2022/Exercise_MMM/Index.html">Mean-Median-Mode
             Exercise</a>
     </div>
 
-    <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('startButton').addEventListener('click', startModeAnimation);
         });
 
-        const dataSet = [2, 3, 3, 5, 7, 10, 3]; // Example dataset including a mode
+        function generateRandomDataset(size) {
+            let numbers = [];
+            for (let i = 0; i < size; i++) {
+                numbers.push(Math.floor(Math.random() * 10) + 1); // Generate numbers between 1 and 10
+            }
+            return numbers;
+        }
 
         function startModeAnimation() {
+            document.getElementById('linksContainer').classList.add('hidden');
+            const dataSet = generateRandomDataset(15); // Generate a random dataset each time
             const startButton = document.getElementById('startButton');
             startButton.style.display = 'none'; // Hide start button
 
@@ -161,7 +169,7 @@
                 }
             });
             setTimeout(() => {
-                resultContainer.innerHTML = `Mode: ${modes.join(', ')}</br></br>`;
+                resultContainer.innerHTML = `Mode: ${modes.join(', ')}`;
             }, 5000);
             setTimeout(() => {
                 document.getElementById('startButton').style.display = 'block'; // Show start button for new rounds
@@ -171,7 +179,6 @@
                 document.getElementById('linksContainer').classList.remove('hidden');
             }, 15000);
         }
-
     </script>
 </body>
 

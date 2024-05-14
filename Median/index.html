@@ -20,7 +20,6 @@
             background-color: blanchedalmond;
         }
 
-
         #explanationContainer,
         #animationContainer,
         #formulaContainer,
@@ -29,9 +28,7 @@
             margin-bottom: 20px;
         }
 
-
-
-        button {
+        .button {
             font-size: 20px;
             padding: 10px;
             margin-top: 20px;
@@ -87,27 +84,31 @@
     <div id="resultContainer"></div>
     <button id="startButton">Start Median Animation</button>
     <div id="linksContainer" class="hidden">
-        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2020/index.html">Mean
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2022/index.html">Mean
             Visualization</a> |
-        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2020/Mode/index.html">Mode
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2022/Mode/index.html">Mode
             Visualization</a>
-        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2020/Exercise_MMM/Index.html">Mean-Median-Mode
+        <a href="file:///C:/Users/sanfr/OneDrive/Desktop/MMM_animation/Version%2022/Exercise_MMM/Index.html">Mean-Median-Mode
             Exercise</a>
     </div>
 
-    <script src="script.js"></script>
     <script>
-
-
-
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('startButton').addEventListener('click', startMedianAnimation);
-
+            
         });
 
-        const dataSet = [7, 2, 10, 3, 5, 3]; // Example mixed dataset
+        function generateRandomDataset(size) {
+            let numbers = [];
+            for (let i = 0; i < size; i++) {
+                numbers.push(Math.floor(Math.random() * 100) + 1); // Generate numbers between 1 and 100
+            }
+            return numbers;
+        }
 
         function startMedianAnimation() {
+            document.getElementById('linksContainer').classList.add('hidden');
+            const dataSet = generateRandomDataset(10); // Generate a random dataset each time
             const startButton = document.getElementById('startButton');
             startButton.style.display = 'none'; // Hide start button
 
@@ -116,9 +117,8 @@
             const formulaContainer = document.getElementById('formulaContainer');
             const resultContainer = document.getElementById('resultContainer');
 
-
             animationContainer.innerHTML = ''; // Clear previous content
-            formulaContainer.innerHTML = ''; // Clear preious content
+            formulaContainer.innerHTML = ''; // Clear previous content
             explanationContainer.innerHTML = 'Displaying numbers one by one...';
             resultContainer.innerHTML = ''; // Clear result content
 
@@ -267,8 +267,6 @@
                 document.getElementById('linksContainer').classList.remove('hidden');
             }, 30000);
         }
-
-
     </script>
 </body>
 

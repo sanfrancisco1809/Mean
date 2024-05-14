@@ -79,7 +79,9 @@
             display: none;
         }
 
-        button {
+        .button {
+            font-size: 20px;
+            padding: 10px;
             margin-top: 20px;
             /* Spacing after the last displayed content */
         }
@@ -188,12 +190,13 @@
         setTimeout(() => {
             document.getElementById('continueButton').classList.remove('hidden');
         }, 75000);
-       
+
         document.getElementById('continueButton').addEventListener('click', function () {
             this.classList.add('hidden');
             numberRange.innerHTML = '';
 
             const newDataSet = [2.5, 5.5, 14.2, 24.3, 45, 80.4];
+            numberRange.classList.remove('hidden');
             animateMeanCalculation(newDataSet);
             //this.classList.add('hidden');
             const audio = document.getElementById('meanAudio2');
@@ -228,7 +231,8 @@
                 // Animate numberRange to center
                 numberRange.animate([
                     { transform: `translate(0, 0)` },
-                    { transform: `translate(${centerX - 100}px, ${0}px)` }
+                    { transform: `translate(${centerX - 100}px, ${0}px)` },
+                    { transform: `translate(${centerX - 100}px, ${300}px)`} 
                 ], {
                     duration: 1000, // Animation duration
                     fill: 'forwards', // Maintain the final state
@@ -246,8 +250,10 @@
                 <span class="denominator">N = Count of numbers</span><br/><br/>
             </div>
         </div>`;
+                numberRange.classList.add('hidden');
             }, 20000);
             //formulaContainer.innerHTML = '<div class="formula">Mean Formula:</div>';
+            numberRange.innerHTML = '';
             formulaContainer.innerHTML = '';
             animationContainer.innerHTML = '';
             calculationContainer.innerHTML = '';
@@ -256,6 +262,7 @@
             setTimeout(() => {
                 displayNumbersSequentially(dataSet, animationContainer, () => {
                 });
+                formulaContainer.classList.add('hidden');
             }, 30000);
         }
 
