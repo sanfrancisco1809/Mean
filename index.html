@@ -149,17 +149,17 @@
     <!--<span class="pointer">&#x2193;</span> -- Pointer for current number -->
     <div id="calculationContainer" class="hidden"></div>
     <video id="meanVideo" src="Mean_Video.mp4"></video>
-    <audio id="meanAudio" src="Audio_mean.wav.m4a" hidden></audio>
+    <audio id="meanAudio" src="Audio_mean.wav.mp4" hidden></audio>
     <audio id="meanAudio2" src="Audio_mean2.wav.m4a" hidden></audio>
     <audio id="meanAudio3" src="link.wav.m4a" hidden></audio>
     <button id="startButton">Start Mean Animation</button>
     <button id="continueButton" class="hidden">Continue with New Dataset</button>
     <div id="linksContainer" class="hidden">
-        <a href="Median/index.html">Median
+        <a href="/Median/index.html">Median
+            Visualization</a> |
+        <a href="/Mode/index.html">Mode
             Visualization</a>
-        <a href="Mode/index.html">Mode
-            Visualization</a>
-        <a href="Exercise_MMM/Index.html">Mean-Median-Mode
+        <a href="/Exercise_MMM/Index.html">Mean-Median-Mode
             Exercise</a>
     </div>
 
@@ -182,14 +182,14 @@
                 audio.currentTime = 0; // Reset the video to the start
                 audio.play();
             }, 9000);
+            setTimeout(() => {
+                document.getElementById('continueButton').classList.remove('hidden');
+            }, 75000);
 
             animateMeanCalculation(dataSet);
             this.classList.add('hidden');
             //document.getElementById('continueButton').classList.remove('hidden');
         });
-        setTimeout(() => {
-            document.getElementById('continueButton').classList.remove('hidden');
-        }, 75000);
 
         document.getElementById('continueButton').addEventListener('click', function () {
             this.classList.add('hidden');
@@ -232,7 +232,7 @@
                 numberRange.animate([
                     { transform: `translate(0, 0)` },
                     { transform: `translate(${centerX - 100}px, ${0}px)` },
-                    { transform: `translate(${centerX - 100}px, ${300}px)`} 
+                    { transform: `translate(${centerX - 100}px, ${300}px)` }
                 ], {
                     duration: 1000, // Animation duration
                     fill: 'forwards', // Maintain the final state
